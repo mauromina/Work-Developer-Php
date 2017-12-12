@@ -37,9 +37,10 @@
 	if(!$error) {
 
 			$sql = "UPDATE josed_document_types_by_country SET ".$columns[$colIndex]." = '".$colVal."' WHERE document_type_id ='".$rowId."'";
-			//$sql = "UPDATE josed_countries SET country_name = 'LOL YOLO' WHERE country_id ='XAD'";
-
-
+			//Update the timeStamp of the table josed_document_update
+			$sqlUpdateTime = "UPDATE `josed_document_update` SET `date_update` = NOW() WHERE `document_type_id` = '".$rowId."'";
+			$status = mysqli_query($conn, $sqlUpdateTime) or die("database error:". mysqli_error($conn));
+			//Update document type country
 			$status = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
 			$msg = array('error' => $error, 'msg' => 'Success! updation in mysql');
 

@@ -1,0 +1,1 @@
+UPDATE `josed_document_update` SET `date_update` = NOW() WHERE `document_type_id` = 'AC'
