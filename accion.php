@@ -4,14 +4,12 @@
       die('Error de Conexi&oacute;n (' . $conexion -> connect_errno . ') '. $conexion -> connect_error);
   }
 
-  $sql2 = "SELECT a.price,b.document_type_name,a.delivery_time, a.document_type_id FROM josed_document_types_by_country a,josed_document_types b
-      WHERE a.document_type_id = b.document_type_id AND a.country_id LIKE '".$_POST["country"]."' HAVING a.price > 0 AND a.delivery_time !=''";
+  $sql2 = "SELECT a.price,b.document_type_name,a.delivery_time, a.document_type_id, a.date_update FROM josed_document_types_by_country a,josed_document_types b
+       WHERE a.document_type_id = b.document_type_id AND a.country_id LIKE '".$_POST["country"]."' HAVING a.price > 0 AND a.delivery_time !=''";
 
   $resultado2 = $conexion -> query($sql2);
-  $cadena2 = '';
-  while ($rows = $resultado2  -> fetch_assoc()){
-    $cadena2 .= $rows["document_type_name"]. " - " .$rows["delivery_time"] ." - " .$rows["price"] ." - " .$rows["document_type_id"];
-  }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +31,7 @@
         <th>Document type</th>
         <th>Delivery time</th>
         <th>Price</th>
+        <th>Date Update</th>
       </tr>
    </thead>
    <tbody id="_editable_table">
@@ -41,6 +40,7 @@
          <td><?php echo $res['document_type_name'];?></td>
          <td class="editable-col" contenteditable="true" col-index='0' oldVal ="<?php echo $res['delivery_time'];?>"><?php echo $res['delivery_time'];?></td>
          <td class="editable-col" contenteditable="true" col-index='1' oldVal ="<?php echo $res['price'];?>"><?php echo $res['price'];?></td>
+         <td><?php echo $res['date_update'];?></td>
       </tr>
     <?php endforeach;?>
    </tbody>
