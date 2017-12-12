@@ -4,15 +4,6 @@
       die('Error de Conexi&oacute;n (' . $conexion -> connect_errno . ') '. $conexion -> connect_error);
   }
 
-  $sql = "SELECT `country_name` FROM josed_countries  WHERE `country_id` = '".$_POST['country']."' ";
-  $resultado = $conexion -> query($sql);
-  $cadena = '';
-  while ($rows = $resultado  -> fetch_assoc()){
-    $cadena .= ':'.$rows["country_name"];
-  }
-  echo "Id Pais: " .$_POST['country' ] ;
-  echo $cadena;
-
   $sql2 = "SELECT a.price,b.document_type_name,a.delivery_time, a.document_type_id FROM josed_document_types_by_country a,josed_document_types b
       WHERE a.document_type_id = b.document_type_id AND a.country_id LIKE '".$_POST["country"]."' HAVING a.price > 0 AND a.delivery_time !=''";
 
@@ -21,8 +12,6 @@
   while ($rows = $resultado2  -> fetch_assoc()){
     $cadena2 .= $rows["document_type_name"]. " - " .$rows["delivery_time"] ." - " .$rows["price"] ." - " .$rows["document_type_id"];
   }
-   echo $cadena2;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,9 +81,6 @@ $(document).ready(function(){
             }
           }
         });
-
-
-    alert("FOCUS FUNCIONANDO");
   });
 });
 
